@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Task List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #fafafa;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        li {
+            background: #fff;
+            margin: 10px 0;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>📝 My Tasks</h1>
+    <ul>
+        {% for task in object_list %}
+        <li>
+            <a href="{% url 'tasks:task_detail' task.id %}">
+                {{ task.title }}
+            </a>
+            {% if task.completed %}
+            ✅
+            {% else %}
+            ❌
+            {% endif %}
+        </li>
+        {% empty %}
+        <li>No tasks found.</li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>

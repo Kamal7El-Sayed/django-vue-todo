@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Task Detail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fafafa;
+            padding: 30px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            max-width: 450px;
+            margin: 40px auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .status {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 25px;
+            text-align: center;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>{{ object.title }}</h1>
+
+        <p class="status">
+            Status:
+            {% if object.completed %}
+            ✅ Completed
+            {% else %}
+            ❌ Not Completed
+            {% endif %}
+        </p>
+
+        <p><strong>Created:</strong> {{ object.created_at|date:"Y-m-d H:i" }}</p>
+
+        <a href="{% url 'tasks:task_list' %}">🔙 Back to list</a>
+    </div>
+</body>
+
+</html>
