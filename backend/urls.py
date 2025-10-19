@@ -16,12 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.shortcuts import redirect
+from django.shortcuts import redirect ,render
+
+
+def landing_page(request):
+    return render(request, 'landing.html')  # الصفحة اللي هننشئها حالًا
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('api/', include('tasks.urls')),
+    path('', landing_page, name='landing'),  # الصفحة الرئيسية
     path('tasks/',include('tasks.urls', namespace='tasks')),
-    #path('', lambda request: redirect('tasks:task-list')),
+    path('accounts/', include('accounts.urls')),
+
+    #path('api/', include('tasks.urls')),
+    
     
 ]

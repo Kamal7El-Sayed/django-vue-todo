@@ -32,13 +32,16 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'rest_framework',
-    'tasks',    
+    'tasks',   
+    'accounts', 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    
 ]
 
 MIDDLEWARE = [
@@ -122,3 +125,14 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'tasks:task_list'
+LOGOUT_REDIRECT_URL = 'login'
+
+
+AUTH_PASSWORD_VALIDATORS = []

@@ -15,9 +15,10 @@ urlpatterns = [
     
     path('', TaskList.as_view(), name="task_list"),
     path('<int:pk>', TaskDetail.as_view(), name="task_detail"),    
-    path ('add/', TaskCreate.as_view(), name="task_add"),
-    
-    path('edit/<int:pk>',TaskUpdate.as_view(), name='task_edit'),
+    path ('add/', TaskCreate.as_view(), name="task_create"),
+
+
+    path('edit/<int:pk>',TaskUpdate.as_view(), name='task_update'),
     path('delete/<int:pk>', TaskDelete.as_view(), name='task_delete'),
     
     

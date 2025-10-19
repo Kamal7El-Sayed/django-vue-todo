@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MyTask Manager</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #007BFF, #00C6FF);
+            color: #fff;
+            overflow-x: hidden;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(10px);
+            animation: slideDown 1s ease;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-60px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        header h2 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        header a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        header a:hover {
+            color: #FFD700;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            color: #e9f6ff;
+        }
+
+        .buttons a {
+            text-decoration: none;
+            background: white;
+            color: #007BFF;
+            padding: 14px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: 0.3s;
+            margin: 0 10px;
+            display: inline-block;
+        }
+
+        .buttons a:hover {
+            background: #0056b3;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        .features {
+            background: #fff;
+            color: #333;
+            padding: 80px 20px;
+            text-align: center;
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        .features h2 {
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: #007BFF;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .feature {
+            background: #f8f9ff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: riseUp 1s forwards;
+        }
+
+        .feature:nth-child(1) { animation-delay: 0.2s; }
+        .feature:nth-child(2) { animation-delay: 0.4s; }
+        .feature:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes riseUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature h3 {
+            color: #007BFF;
+        }
+
+        footer {
+            background: #001f3f;
+            color: #ccc;
+            padding: 20px;
+            text-align: center;
+            animation: fadeIn 2s ease-in;
+        }
+
+        footer a {
+            color: #00C6FF;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h2>📝 MyTask</h2>
+        <nav>
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'signup' %}">Sign Up</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Organize Your Day Effortlessly</h1>
+        <p>Free task management for teams and individuals — plan, track, and complete your goals with MyTask Manager.</p>
+        <div class="buttons">
+            <a href="{% url 'signup' %}">Get Started</a>
+            <a href="{% url 'login' %}">Login</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <h2>Why Choose MyTask?</h2>
+        <div class="feature-grid">
+            <div class="feature">
+                <h3>✅ Simple & Intuitive</h3>
+                <p>Focus on your work, not on the tool. MyTask is designed to be easy and smooth.</p>
+            </div>
+            <div class="feature">
+                <h3>👥 Team Collaboration</h3>
+                <p>Work together, share progress, and stay in sync with your teammates easily.</p>
+            </div>
+            <div class="feature">
+                <h3>📱 Cross-Platform</h3>
+                <p>Access your tasks anywhere, anytime — from desktop or mobile.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 MyTask Manager | Built with ❤️ by Kamal</p>
+    </footer>
+
+</body>
+</html>
