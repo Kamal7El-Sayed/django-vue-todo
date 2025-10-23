@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Task
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .forms import TaskForm
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 
 
@@ -14,9 +15,6 @@ from django.contrib.auth.decorators import login_required
 def task_list(request):
     tasks = Task.objects.filter(user=request.user)
     return render(request, 'tasks/task_list.html', {'tasks': tasks, 'user_name': request.user.username})
-
-
-
 
 
 
@@ -62,4 +60,17 @@ class TaskDelete(DeleteView):
     success_url = reverse_lazy('tasks:task_list')
     
     
-    
+def landing(request):
+    # لو المستخدم عامل تسجيل دخول، يروح على صفحة المهام
+    if request.user.is_authenticated:
+        print("⚠️ [INFO] Authenticated user tried to access the landing page:", request.user.username)
+        return redirect('tasks:task_list')
+    print("✅ [INFO] Anonymous visitor accessed the landing page.")
+    # لو مش عامل تسجيل دخول، يشوف صفحة البداية
+    return render(request, 'landing.html')
+
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')  # أو 'landing' لو عايز يرجع للصفحة الرئيسية

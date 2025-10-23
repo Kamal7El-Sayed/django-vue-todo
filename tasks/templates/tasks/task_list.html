@@ -1,233 +1,95 @@
 {% extends 'base.html' %}
-{% block title %}My Tasks{% endblock %}
-{% block content %}
+{% block title %}📝 My Tasks{% endblock %}
 
+{% block body %}
+<style>
+    /* 🌟 تأثير Hover للتاسك */
+    .list-group-item {
+        transition: all 0.25s ease-in-out;
+        border-radius: 10px;
+    }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>My Tasks</title>
-    <style>
-        /* 🌈 إعدادات عامة */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    .list-group-item:hover {
+        background-color: #f8f9fa;
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
 
-        body {
-            font-family: "Poppins", sans-serif;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: #333;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+    /* 💫 تأثير للأزرار */
+    .btn-outline-primary:hover {
+        background-color: #0d6efd;
+        color: #fff !important;
+        transform: scale(1.05);
+    }
 
-        header {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            color: #fff;
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
+    .btn-outline-danger:hover {
+        background-color: #dc3545;
+        color: #fff !important;
+        transform: scale(1.05);
+    }
 
-        header h2 {
-            font-size: 26px;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
+    .btn-success:hover {
+        background-color: #198754;
+        transform: scale(1.05);
+    }
 
-        header a {
-            background: #ff4b2b;
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: 0.3s;
-        }
+    /* 💡 تأثير للرابط داخل التاسك */
+    .task-title a {
+        transition: color 0.25s ease-in-out;
+    }
 
-        header a:hover {
-            background: #ff6f61;
-        }
+    .task-title a:hover {
+        color: #0d6efd;
+        text-decoration: underline;
+    }
 
-        .container {
-            flex: 1;
-            max-width: 900px;
-            margin: 50px auto;
-            background: #fff;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            animation: fadeIn 0.7s ease-in-out;
-        }
+    /* 🪶 تنعيم بسيط للـ header */
+    header {
+        border-radius: 10px;
+    }
+</style>
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+<header class="d-flex justify-content-between align-items-center bg-light p-3 rounded shadow-sm mb-4">
+    <h2 class="fw-bold text-dark m-0">📝 My Tasks</h2>
+    <a href="{% url 'logout' %}" class="btn btn-danger fw-semibold px-3">Logout</a>
+</header>
 
-        h3 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #1e3c72;
-            font-size: 28px;
-            font-weight: 700;
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        li {
-            background: #f7f9fc;
-            margin-bottom: 15px;
-            padding: 15px 20px;
-            border-radius: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
-            border-left: 5px solid transparent;
-        }
-
-        li:hover {
-            background: #eef2f7;
-            border-left: 5px solid #1e3c72;
-        }
-
-        .task-title {
-            font-size: 18px;
-            font-weight: 500;
-        }
-
-        .task-actions {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .task-actions a {
-            text-decoration: none;
-            padding: 7px 14px;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        .edit {
-            background: #007bff;
-            color: #fff;
-        }
-
-        .edit:hover {
-            background: #0062cc;
-        }
-
-        .delete {
-            background: #ff4d4d;
-            color: #fff;
-        }
-
-        .delete:hover {
-            background: #cc0000;
-        }
-
-        .status {
-            font-weight: 600;
-            font-size: 15px;
-        }
-
-        .done {
-            color: green;
-        }
-
-        .pending {
-            color: #ff9800;
-        }
-
-        .add-task {
-            text-align: center;
-            margin-top: 40px;
-        }
-
-        .add-task a {
-            background: #28a745;
-            color: white;
-            text-decoration: none;
-            padding: 14px 30px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 16px;
-            transition: 0.3s;
-        }
-
-        .add-task a:hover {
-            background: #1e7e34;
-        }
-
-        .no-tasks {
-            text-align: center;
-            font-size: 18px;
-            color: #888;
-            margin-top: 30px;
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <h2>📝 My Tasks</h2>
-        <a href="{% url 'logout' %}">Logout</a>
-    </header>
-
-    <div class="container">
-        <h3>Your Task List</h3>
-
-        <ul>
+<div class="container">
+    {% if tasks %}
+        <ul class="list-group">
             {% for task in tasks %}
-                <li>
-                <span class="task-title">
-                    {% if task.completed %}
-                        ✅ <a href="{% url 'tasks:task_detail' task.id %}" style="text-decoration: none; color: inherit;">
-                            <del>{{ task.title }}</del>
-                        </a>
-                    {% else %}
-                        <a href="{% url 'tasks:task_detail' task.id %}" style="text-decoration: none; color: inherit;">
-                            {{ task.title }}
-                        </a>
-                    {% endif %}
-                </span>
-
+                <li class="list-group-item d-flex justify-content-between align-items-center shadow-sm mb-2">
+                    <div class="task-title">
+                        {% if task.completed %}
+                            ✅ <a href="{% url 'tasks:task_detail' task.id %}" class="text-decoration-none text-muted">
+                                <del>{{ task.title }}</del>
+                            </a>
+                        {% else %}
+                            <a href="{% url 'tasks:task_detail' task.id %}" class="text-decoration-none text-dark">
+                                {{ task.title }}
+                            </a>
+                        {% endif %}
+                    </div>
 
                     <div class="task-actions">
                         {% if task.completed %}
-                            <span class="status done">Done</span>
+                            <span class="badge bg-success me-2">Done</span>
                         {% else %}
-                            <span class="status pending">Pending</span>
+                            <span class="badge bg-warning text-dark me-2">Pending</span>
                         {% endif %}
 
-                        <a href="{% url 'tasks:task_update' task.id %}" class="edit">Edit</a>
-                        <a href="{% url 'tasks:task_delete' task.id %}" class="delete">Delete</a>
+                        <a href="{% url 'tasks:task_update' task.id %}" class="btn btn-sm btn-outline-primary me-1">Edit</a>
+                        <a href="{% url 'tasks:task_delete' task.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
                     </div>
                 </li>
-            {% empty %}
-                <p class="no-tasks">😴 No tasks yet — add your first one!</p>
             {% endfor %}
         </ul>
+    {% else %}
+        <p class="text-center text-muted mt-4">😴 No tasks yet — <a href="{% url 'tasks:task_create' %}" class="text-warning fw-semibold">add your first one!</a></p>
+    {% endif %}
 
-        <div class="add-task">
-            <a href="{% url 'tasks:task_create' %}">➕ Add New Task</a>
-        </div>
+    <div class="text-center mt-4">
+        <a href="{% url 'tasks:task_create' %}" class="btn btn-success px-4 fw-semibold">➕ Add New Task</a>
     </div>
-
-</body>
-</html>
-
-
+</div>
 {% endblock %}

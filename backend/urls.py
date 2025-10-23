@@ -16,7 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.shortcuts import redirect ,render
+from django.shortcuts import redirect ,render 
+from tasks import views
+
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 def landing_page(request):
@@ -24,11 +28,30 @@ def landing_page(request):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', landing_page, name='landing'),  # الصفحة الرئيسية
+    path('', views.landing, name='landing'),
+    #path('', landing_page, name='landing'),  # الصفحة الرئيسية
     path('tasks/',include('tasks.urls', namespace='tasks')),
     path('accounts/', include('accounts.urls')),
+    
+    
+    
+    
+    
+    
+    
 
     #path('api/', include('tasks.urls')),
     
     
 ]
+
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+
+
